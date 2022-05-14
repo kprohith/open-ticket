@@ -66,7 +66,11 @@ function Buy({ connectedContract }) {
       setBuyTxnPending(false);
       toast({
         title: "Failed.",
-        description: err,
+        description: (
+          <a>
+            Transaction failed!
+          </a>
+        ),
         status: "error",
         variant: "subtle",
       });
