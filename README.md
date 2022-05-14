@@ -39,11 +39,17 @@ yarn start
 ## Functionality implemented until now:
 
 1. Components
+
 1.1 A starter-template homepage that shows a buy button to buy a ticket.
+
 1.2 A Connect/Disconnect button to interface with Metamask wallets.
+
 1.3 Admin-accessible Check In page to verify ownership of user tickets/nfts.
+
 1.4 Admin-accessible Settings page to OPEN/CLOSE sale of tickets.
+
 1.5 Your Tickets page to show the user's tickets/nfts.
+
 2. The process of "buying" a ticket will mint an ERC720 NFT.
 3. Metamask has been integrated for users to connect and perform transactions.
 4. Once a user connects their Metamask wallet using the connect button, they can proceed to BUY a ticket, pay the transaction fee and secure a ticket which will result in a NFT being minted and written to the blockchain.
