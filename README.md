@@ -3,6 +3,8 @@
 
 ## NFT Event Ticketing System
 
+[![pages-build-deployment](https://github.com/kprohith/open-ticket/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/kprohith/open-ticket/actions/workflows/pages/pages-build-deployment)
+
 ## Get started
 
 1. Clone the repo to you local system
