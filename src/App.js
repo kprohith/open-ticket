@@ -167,6 +167,7 @@ function App() {
                 </MenuItem>
                 <MenuDivider />
                 <MenuItem
+                  isDisabled={!address}
                   onClick={() =>
                     navigate("/wallet")
                   }
@@ -266,7 +267,7 @@ function App() {
 
             <Route
               path="/wallet"
-              element={<Wallet />}
+              element={<Wallet address={address}/>}
             />
           </Routes>
         </Flex>
