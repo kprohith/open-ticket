@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/open-ticket/static/css/main.e050d466.chunk.css",
+    "main.js": "/open-ticket/static/js/main.f858bdfa.chunk.js",
+    "main.js.map": "/open-ticket/static/js/main.f858bdfa.chunk.js.map",
+    "runtime-main.js": "/open-ticket/static/js/runtime-main.1be446e5.js",
+    "runtime-main.js.map": "/open-ticket/static/js/runtime-main.1be446e5.js.map",
+    "static/js/2.fdc7c4c5.chunk.js": "/open-ticket/static/js/2.fdc7c4c5.chunk.js",
+    "static/js/2.fdc7c4c5.chunk.js.map": "/open-ticket/static/js/2.fdc7c4c5.chunk.js.map",
+    "static/js/3.55e1e4c5.chunk.js": "/open-ticket/static/js/3.55e1e4c5.chunk.js",
+    "static/js/3.55e1e4c5.chunk.js.map": "/open-ticket/static/js/3.55e1e4c5.chunk.js.map",
+    "index.html": "/open-ticket/index.html",
+    "static/css/main.e050d466.chunk.css.map": "/open-ticket/static/css/main.e050d466.chunk.css.map",
+    "static/js/2.fdc7c4c5.chunk.js.LICENSE.txt": "/open-ticket/static/js/2.fdc7c4c5.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1be446e5.js",
+    "static/js/2.fdc7c4c5.chunk.js",
+    "static/css/main.e050d466.chunk.css",
+    "static/js/main.f858bdfa.chunk.js"
+  ]
+}
