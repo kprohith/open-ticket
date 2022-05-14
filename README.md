@@ -1,2 +1,4 @@
 # open-ticket
-NFT Event Ticketing System
+![](./src/images/logo.png)
+
+## NFT Event Ticketing System
