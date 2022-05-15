@@ -7,7 +7,7 @@
 
 ## Get started
 
-1. Clone the repo to you local system
+1. Clone the repo to your local system
 
 ```bash
 git clone https://github.com/kprohith/open-ticket.git
@@ -25,12 +25,10 @@ cd open-ticket
 yarn install
 ```
 
-4. Set the value of `REACT_APP_CONTRACT_ID`
+4. Create a file in the root dir called `.env.development.local` and set the value of `REACT_APP_CONTRACT_ID`
 
-```env
-# .env.development.local
-
-REACT_APP_CONTRACT_ID=0x1234567890
+```
+REACT_APP_CONTRACT_ID=<contract address from etherscan>
 ```
 
 5. Start the development server
@@ -41,16 +39,11 @@ yarn start
 ## Functionality implemented until now:
 
 1. Components
-
-1.1 A starter-template homepage that shows a buy button to buy a ticket.
-
-1.2 A Connect/Disconnect button to interface with Metamask wallets.
-
-1.3 Admin-accessible Check In page to verify ownership of user tickets/nfts.
-
-1.4 Admin-accessible Settings page to OPEN/CLOSE sale of tickets.
-
-1.5 Your Tickets page to show the user's tickets/nfts.
+    1. A starter-template homepage that shows a buy button to buy a ticket.
+    2. A Connect/Disconnect button to interface with Metamask wallets.
+    3. Admin-accessible Check In page to verify ownership of user tickets/nfts.
+    4. Admin-accessible Settings page to OPEN/CLOSE sale of tickets.
+    5. Your Tickets page to show the user's tickets/nfts.
 
 2. The process of "buying" a ticket will mint an ERC720 NFT.
 3. Metamask has been integrated for users to connect and perform transactions.
