@@ -4,14 +4,17 @@ import {
 } from "react";
 import {
   Button,
-  ButtonGroup,
   Heading,
   Text,
   Flex,
   useToast,
+  VStack,
+  Box
 } from "@chakra-ui/react";
 
-function Buy({ connectedContract }) {
+import Connect from "../components/Connect";
+
+function Buy({ connectedContract, address, setAddress }) {
   const toast = useToast();
   const [
     totalTicketCount,
@@ -67,9 +70,9 @@ function Buy({ connectedContract }) {
       toast({
         title: "Failed.",
         description: (
-          <a>
+          <p>
             Transaction failed!
-          </a>
+          </p>
         ),
         status: "error",
         variant: "subtle",
@@ -80,8 +83,7 @@ function Buy({ connectedContract }) {
   const getAvailableTicketCount =
     async () => {
       try {
-        const count =
-          await connectedContract.availableTicketCount();
+        const count = await connectedContract.availableTicketCount();
         setAvailableTicketCount(
           count.toNumber()
         );
@@ -104,15 +106,40 @@ function Buy({ connectedContract }) {
     };
 
   return (
-    <>
-      <Heading mb={30}>
-        |NFT Event Ticketing System|
+    <VStack>
+      <Heading>
+        Buy NFT Tickets
       </Heading>
-      <Text fontSize="xl" mb={4}>
-        Connect your wallet to mint your
-        NFT. It'll be your ticket to get
-        in!
-      </Text>
+      {!address &&
+        <Text fontSize="xl">
+          OpenTicket is your one-stop shop for NFT tickets. Connect your wallet to view all available events.
+        </Text>
+      }
+
+      {address &&
+        <Text fontSize="xl" >
+          Thanks for connecting your wallet. Browse the page to view all NFT tickets currently available for buying.
+        </Text>
+      }
+
+      <Connect address={address} onConnect={(address) => {
+        setAddress(address);
+
+        window.localStorage.setItem(
+          "open-ticket-address",
+          address
+        );
+      }}
+
+        onDisconnect={() => {
+          setAddress(null);
+
+          window.localStorage.removeItem(
+            "open-ticket-address"
+          );
+        }}
+      />
+
       <Flex
         flexDirection="column"
         alignItems="center"
@@ -120,26 +147,37 @@ function Buy({ connectedContract }) {
         margin="0 auto"
         maxW="140px"
       >
-        <ButtonGroup mb={4}>
-          <Button
-            onClick={buyTicket}
-            isLoading={buyTxnPending}
-            loadingText="Pending"
-            size="lg"
-            colorScheme="teal"
+        {address &&
+          <VStack
+            align="center"
+            justify="center"
+            border="1px"
+            width="200px"
+
           >
-            Buy Ticket
-          </Button>
-        </ButtonGroup>
-        {availableTicketCount &&
-          totalTicketCount && (
-            <Text>
-              {availableTicketCount} of{" "}
-              {totalTicketCount} minted!
+            <Box padding="100px 0px">
+              {/* TODO: get img of nft */}
+            </Box>
+            <Text as="strong">
+              OPNT {/* TODO: get name of nft */}
             </Text>
-          )}
+            <Button
+              onClick={buyTicket}
+              isLoading={buyTxnPending}
+              loadingText="Pending"
+              size="lg"
+              colorScheme="yellow"
+              color="white"
+            >
+              Buy Ticket
+            </Button>
+            <Text w="130px">
+              {availableTicketCount} of {totalTicketCount} minted!
+            </Text>
+          </VStack>
+        }
       </Flex>
-    </>
+    </VStack>
   );
 }
 

@@ -2,6 +2,8 @@ import {
   Button,
   Box,
   Flex,
+  Text,
+  HStack
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +23,7 @@ function Connect({ address, onConnect, onDisconnect }) {
       console.log(err)
     }
   };
-  
+
   const disconnectWallet = () => {
     onDisconnect();
     navigate("/");
@@ -29,56 +31,65 @@ function Connect({ address, onConnect, onDisconnect }) {
   return (
     <Flex
       fontWeight="bold"
-      position="absolute"
-      top="8px"
-      right="8px"
+      padding={2}
       zIndex="10"
     >
       {address && (
+        <HStack spacing="20px">
+          <Box
+         bg="white"
+         color="black"
+         border="1px solid goldenrod"
+         minW="120px"
+         p="8px 16px"
+         borderRadius="16px"
+         textAlign="center"
+         >
+              <Text >
+                💳 {address.slice(0, 6)}
+                ...{address.slice(-4)}
+              </Text>
+          </Box>
+          <Box
+            bg="goldenrod"
+            minW="120px"
+            p="8px 16px"
+            borderRadius="16px"
+            textAlign="center"
+          >
+            <Button
+              onClick={disconnectWallet}
+              size="sm"
+              variant="link"
+              color="white"
+            >
+              Disconnect Wallet
+            </Button>
+          </Box>
+        </HStack>
+      )}
+
+      {!address &&
         <Box
-          bg="white"
+          bg="goldenrod"
           minW="120px"
           p="8px 16px"
           borderRadius="16px"
           textAlign="center"
-          marginRight="16px"
         >
-          <Button
-            onClick={disconnectWallet}
-            size="sm"
-            variant="link"
-            color="purple"
-          >
-            Disconnect
-          </Button>
-        </Box>
 
-      )}
-      <Box
-        bg="white"
-        minW="120px"
-        p="8px 16px"
-        borderRadius="16px"
-        textAlign="center"
-      >
-        {!address && (
           <Button
             onClick={connectWallet}
             size="sm"
             variant="link"
-            color="purple"
+            color="white"
           >
-            Connect
+            Connect to Wallet
           </Button>
-        )}
-        {address && (
-          <span>
-            💳{address.slice(0, 6)}
-            ...{address.slice(-4)}
-          </span>
 
-        )}
-      </Box>
+        </Box>
+      }
+
     </Flex>
   );
 }

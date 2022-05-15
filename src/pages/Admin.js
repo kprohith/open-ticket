@@ -5,6 +5,7 @@ import {
   Heading,
   Text,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 
 function Admin({
@@ -32,7 +33,7 @@ function Admin({
         variant: 'subtle',
         description: (
           <a 
-            href={`https://rinkeby.etherscan.io/tx/${openSaleTxn.hash}`} target="_blank" rel="nofollow no referrer"
+            href={`https://rinkeby.etherscan.io/tx/${openSaleTxn.hash}`} target="_blank" rel="noreferrer nofollow"
           >
             View this transaction on Etherscan.
           </a>
@@ -70,7 +71,7 @@ function Admin({
         variant: 'subtle',
         description: (
           <a 
-            href={`https://rinkeby.etherscan.io/tx/${closeSaleTxn.hash}`} target="_blank" rel="nofollow no referrer"
+            href={`https://rinkeby.etherscan.io/tx/${closeSaleTxn.hash}`} target="_blank" rel="nofollow noreferrer"
           >
             View this transaction on Etherscan.
           </a>
@@ -90,24 +91,25 @@ function Admin({
   }
 
   return (
-    <>
-      <Heading mb={4}>
-        Admin panel
+    <VStack>
+      <Heading>
+        Admin Panel
       </Heading>
-      <Text fontSize="xl" mb={8}>
+      <Text fontSize="xl">
         Enable and disable sales on the
         smart contract.
       </Text>
       <Flex
         width="100%"
         justifyContent="center"
+        padding={2}
       >
         <Button
           isLoading={openSaleTxnPending}
           isDisabled={!isOwner || closeSaleTxnPending}
           onClick={openSale}
           size="lg"
-          colorScheme="teal"
+          colorScheme="green"
         >
           Open Sale
         </Button>
@@ -123,7 +125,7 @@ function Admin({
           Close Sale
         </Button>
       </Flex>
-    </>
+    </VStack>
   );
 }
 

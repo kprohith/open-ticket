@@ -5,6 +5,7 @@ import {
   Heading,
   Text,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 import {
   useEffect,
@@ -100,8 +101,8 @@ function CheckIn({
   ]);
 
   return (
-    <>
-      <Heading mb={4}>Check In</Heading>
+    <VStack>
+      <Heading>Check In</Heading>
       {!showScanner &&
         scannedAddress &&
         hasTicket && (
@@ -112,6 +113,7 @@ function CheckIn({
             <Flex
               width="100%"
               justifyContent="center"
+              padding={2}
             >
               <Button
                 onClick={checkIn}
@@ -119,7 +121,7 @@ function CheckIn({
                   checkInTxnPending
                 }
                 size="lg"
-                colorScheme="teal"
+                colorScheme="yellow"
               >
                 Check In
               </Button>
@@ -129,7 +131,7 @@ function CheckIn({
       {!showScanner && (
         <>
           {!scannedAddress && (
-            <Text fontSize="xl" mb={8}>
+            <Text fontSize="xl">
               Scan wallet address to
               verify ticket ownership
               and check-in.
@@ -150,13 +152,15 @@ function CheckIn({
             <Flex
               width="100%"
               justifyContent="center"
+              padding={2}
             >
               <Button
                 onClick={() =>
                   setShowScanner(true)
                 }
                 size="lg"
-                colorScheme="teal"
+                color="white"
+                colorScheme="yellow"
               >
                 Scan QR
               </Button>
@@ -217,6 +221,7 @@ function CheckIn({
           <Flex
             width="100%"
             justifyContent="center"
+            padding={2}
           >
             <Button
               onClick={() =>
@@ -230,7 +235,7 @@ function CheckIn({
           </Flex>
         </>
       )}
-    </>
+    </VStack>
   );
 }
 
