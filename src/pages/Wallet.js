@@ -5,7 +5,8 @@ import {
   CircularProgress,
   Image,
   Link,
-  VStack
+  VStack,
+  Flex
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -13,45 +14,48 @@ import axios from "axios";
 
 function Wallet({ address }) {
   const [loadingTicket, setLoadingTicket] = useState(false);
-  const [ticket, setTicket] = useState(null);
+  const [tickets, setTickets] = useState(null);
 
   const createTicketDisplay = () => {
-    if (!ticket) {
+    if (!tickets) {
       return null
     };
-    console.log(ticket)
 
+    // TODO: sort the json to list the tickets in order of buying
     return (
-      <Link
-        href={ticket.permalink}
-        key={ticket.token_id}
-        isExternal
-        width="10%"
-        margin="16px 8px"
-        padding={4}
-
-      >
-        <Box
-          padding="12px"
-          border="1px solid black"
-          borderRadius="12px"
-        >
-          <Image
-            src={ticket.image_url}
-            alt={`OPNT #${ticket.token_id}`}
-          />
-
-          <Text
-            fontSize="xl"
-            textAlign="center"
-            mb={2}
+      <>
+        {tickets.map((ticket) => {
+          return <Link
+            href={ticket.permalink}
+            key={ticket.token_id}
+            isExternal
+            margin="16px 8px"
+            padding={4}
           >
-            OPNT #{ticket.token_id}
-          </Text>
-        </Box>
-      </Link>
-    );
+            <Box
+              padding="12px"
+              border="1px solid black"
+              borderRadius="12px"
+            >
+              <Image
+                src={ticket.image_url}
+                alt={`OPNT #${ticket.token_id}`}
+              />
+
+              <Text
+                fontSize="xl"
+                textAlign="center"
+                mb={2}
+              >
+                OPNT #{ticket.token_id}
+              </Text>
+            </Box>
+          </Link>
+        })}
+        </>
+        );
   };
+
   useEffect(() => {
     if (!address) return;
     axios.get(`https://rinkeby-api.opensea.io/api/v1/assets?owner=${address}&asset_contract_address=${process.env.REACT_APP_CONTRACT_ID}`
@@ -60,7 +64,7 @@ function Wallet({ address }) {
         setLoadingTicket(true);
         console.log(res);
         if (res.status === 200 && res?.data?.assets && res?.data?.assets.length) {
-          setTicket(res.data.assets[0]);
+          setTickets(res.data.assets);
         }
         setLoadingTicket(false);
       })
@@ -75,27 +79,27 @@ function Wallet({ address }) {
       <Heading>
         Your tickets
       </Heading>
-      
-        {loadingTicket && (
-          <CircularProgress
-            capIsRound
-            isIndeterminate
-            color="yellow.300"
-            size="120px"
-          />
-        )}
 
-        {!loadingTicket && ticket && createTicketDisplay()}
+      {loadingTicket && (
+        <CircularProgress
+          capIsRound
+          isIndeterminate
+          color="yellow.300"
+          size="120px"
+        />
+      )}
 
-        {!loadingTicket && !ticket && (
-          <Text
-            fontSize="xl"
-              width="100%"
-              padding={4}
-          >
-            You own zero tickets as of now.
-          </Text>
-        )}
+      {!loadingTicket && tickets && <Flex justify="center" width="100%"> {createTicketDisplay()} </Flex>}
+
+      {!loadingTicket && !tickets && (
+        <Text
+          fontSize="xl"
+          width="100%"
+          padding={4}
+        >
+          You own zero tickets as of now.
+        </Text>
+      )}
 
     </VStack>
   );
