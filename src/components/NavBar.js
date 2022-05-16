@@ -1,3 +1,8 @@
+import {
+    useState,
+    useEffect
+} from "react";
+
 import logo from "../images/logo.png"
 
 import {
@@ -7,45 +12,87 @@ import {
 import {
     Button,
     Image,
-    HStack,
+    Wrap,
     Link,
+    Flex,
+    Menu,
+    MenuButton,
+    IconButton,
+    MenuList,
+    VStack
 } from "@chakra-ui/react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faAlignJustify
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function NavBar(props) {
 
+    const [width, setWidth] = useState(null);
+
+    useEffect(() => {
+        updateDims();
+        window.addEventListener("resize", updateDims);
+        return () =>
+            window.removeEventListener("resize", updateDims);
+    }, [])
+
+    const updateDims = () => {
+        setWidth(window.innerWidth);
+    }
+
+    const desktop = width > 1200;
     return (
-        <HStack
+        <Flex
             position="relative"
-            width="100%"
+            maxW="100vw"
             top="0px"
             left="0px"
-            spacing="50px"
-            padding="20px"
-            bg="white"
-        >
+            justify={desktop ? "left" : "center"}
+            align="center">
+
             <Image
                 src={logo}
                 alt="OpenTicket logo"
-                width="400px"
-                height="80px"
+                maxW="25vw"
+                minW="10vw"
+                m="4"
             />
-            {/* 
-             TODO: find a way to add icons back in - need to be components not imgs
-             rightIcon={faEthereum}
-             rightIcon={faTicketAlt}
-             rightIcon={faQrcode}
-             rightIcon={faTools} */}
-            
-            <Link as={ReactLink} to="/"><Button minW="130px">Buy</Button></Link>
-            {props.address && <Link as={ReactLink} to="/wallet">
-                <Button minW="130px">Owned Tickets</Button></Link>}
-            {props.address && <Link as={ReactLink} to="/check-in">
-                <Button minW="130px">Check In</Button></Link>}
-            {props.address && props.isOwner && <Link as={ReactLink} to="/admin">
-                <Button minW="130px" colorScheme="yellow" color="white">Admin Panel</Button></Link>} 
 
-        </HStack>
+            {desktop &&
+                <Wrap justify="center">
+                    <Link p="4" as={ReactLink} to="/"><Button minW="130px">Buy</Button></Link>
+                    {props.address && <Link p="4" as={ReactLink} to="/wallet">
+                        <Button minW="130px">Owned Tickets</Button></Link>}
+                    {props.address && props.isOwner && <Link p="4" as={ReactLink} to="/check-in">
+                        <Button minW="130px" colorScheme="yellow" color="white">Check In</Button></Link>}
+                    {props.address && props.isOwner && <Link p="4" as={ReactLink} to="/admin">
+                        <Button minW="130px" colorScheme="yellow" color="white">Admin Panel</Button></Link>}
+                </Wrap>
+            }
+
+            {!desktop &&
+                <Menu>
+                    <MenuButton
+                        as={IconButton}
+                        aria-label='Options'
+                        icon={<FontAwesomeIcon icon={faAlignJustify}></FontAwesomeIcon>}
+                        variant='outline'
+                    />
+                    <MenuList>
+                        <VStack justify="center">
+                            <Link p="1" as={ReactLink} to="/"><Button minW="130px">Buy</Button></Link>
+                            {props.address && <Link p="1" as={ReactLink} to="/wallet">
+                                <Button minW="130px">Owned Tickets</Button></Link>}
+                            {props.address && props.isOwner && <Link p="1" as={ReactLink} to="/check-in">
+                                <Button minW="130px" colorScheme="yellow" color="white">Check In</Button></Link>}
+                            {props.address && props.isOwner && <Link p="1" as={ReactLink} to="/admin">
+                                <Button minW="130px" colorScheme="yellow" color="white">Admin Panel</Button></Link>}
+                        </VStack>
+                    </MenuList>
+                </Menu>
+            }
+        </Flex>
     )
-
 }
-

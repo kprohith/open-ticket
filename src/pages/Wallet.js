@@ -6,7 +6,7 @@ import {
   Image,
   Link,
   VStack,
-  Flex
+  Wrap
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -89,7 +89,7 @@ function Wallet({ address }) {
         />
       )}
 
-      {!loadingTicket && tickets && <Flex justify="center" width="100%"> {createTicketDisplay()} </Flex>}
+      {!loadingTicket && tickets && <Wrap justify="center" width="100%"> {createTicketDisplay()} </Wrap>}
 
       {!loadingTicket && !tickets && (
         <Text

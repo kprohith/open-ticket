@@ -32,7 +32,6 @@ function Connect({ address, onConnect, onDisconnect }) {
     <Flex
       fontWeight="bold"
       padding={2}
-      zIndex="10"
     >
       {address && (
         <HStack spacing="20px">

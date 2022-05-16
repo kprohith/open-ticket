@@ -14,12 +14,11 @@ function Page({ children }) {
       direction="column"
       grow="1"
       minH="100vh"
-
     >
       <Box
         bg="white"
         width="100%"
-        padding="20px 0px 100px 0px"
+        padding="0px 0px 100px 0px"
         align="center">
         {children}
       </Box>
