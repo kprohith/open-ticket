@@ -27,7 +27,7 @@ import {
     faAlignJustify
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function NavBar(props) {
+export default function NavBar({address, isOwner}) {
 
     const [width, setWidth] = useState(null);
 
@@ -63,11 +63,11 @@ export default function NavBar(props) {
             {desktop &&
                 <Wrap justify="center">
                     <Link p="4" as={ReactLink} to="/"><Button minW="130px">Buy</Button></Link>
-                    {props.address && <Link p="4" as={ReactLink} to="/wallet">
+                    {address && <Link p="4" as={ReactLink} to="/wallet">
                         <Button minW="130px">Owned Tickets</Button></Link>}
-                    {props.address && props.isOwner && <Link p="4" as={ReactLink} to="/check-in">
+                    {address && isOwner && <Link p="4" as={ReactLink} to="/check-in">
                         <Button minW="130px" colorScheme="yellow" color="white">Check In</Button></Link>}
-                    {props.address && props.isOwner && <Link p="4" as={ReactLink} to="/admin">
+                    {address && isOwner && <Link p="4" as={ReactLink} to="/admin">
                         <Button minW="130px" colorScheme="yellow" color="white">Admin Panel</Button></Link>}
                 </Wrap>
             }
@@ -83,11 +83,11 @@ export default function NavBar(props) {
                     <MenuList>
                         <VStack justify="center">
                             <Link p="1" as={ReactLink} to="/"><Button minW="130px">Buy</Button></Link>
-                            {props.address && <Link p="1" as={ReactLink} to="/wallet">
+                            {address && <Link p="1" as={ReactLink} to="/wallet">
                                 <Button minW="130px">Owned Tickets</Button></Link>}
-                            {props.address && props.isOwner && <Link p="1" as={ReactLink} to="/check-in">
+                            {address && isOwner && <Link p="1" as={ReactLink} to="/check-in">
                                 <Button minW="130px" colorScheme="yellow" color="white">Check In</Button></Link>}
-                            {props.address && props.isOwner && <Link p="1" as={ReactLink} to="/admin">
+                            {address && isOwner && <Link p="1" as={ReactLink} to="/admin">
                                 <Button minW="130px" colorScheme="yellow" color="white">Admin Panel</Button></Link>}
                         </VStack>
                     </MenuList>

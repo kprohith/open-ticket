@@ -8,21 +8,18 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-function Admin({
-  isOwner,
-  connectedContract,
-}) {
+function Admin({contract}) {
 
   const toast = useToast();
   const [openSaleTxnPending, setOpenSaleTxnPending] = useState(false);
 
   const openSale = async () => {
     try {
-      if (!connectedContract) {
+      if (!contract) {
         return;
       }
       setOpenSaleTxnPending(true);
-      let openSaleTxn = await connectedContract.openSale();
+      let openSaleTxn = await contract.openSale();
 
       await openSaleTxn.wait();
       setOpenSaleTxnPending(false);
@@ -56,11 +53,11 @@ function Admin({
 
   const closeSale = async () => {
     try {
-      if (!connectedContract) {
+      if (!contract) {
         return;
       }
       setCloseSaleTxnPending(true);
-      let closeSaleTxn = await connectedContract.closeSale();
+      let closeSaleTxn = await contract.closeSale();
 
       await closeSaleTxn.wait();
       setCloseSaleTxnPending(false);
@@ -106,7 +103,7 @@ function Admin({
       >
         <Button
           isLoading={openSaleTxnPending}
-          isDisabled={!isOwner || closeSaleTxnPending}
+          isDisabled={closeSaleTxnPending}
           onClick={openSale}
           size="lg"
           colorScheme="green"
@@ -116,7 +113,7 @@ function Admin({
         <Button
           isLoading={closeSaleTxnPending}
           onClick={closeSale}
-          isDisabled={!isOwner || openSaleTxnPending}
+          isDisabled={openSaleTxnPending}
           size="lg"
           colorScheme="red"
           variant="solid"

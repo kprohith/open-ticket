@@ -6,28 +6,34 @@ import {
   HStack
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { ethers } from 'ethers';
+import nftTicketing from '../contracts/nftTicketing.json';
 
-function Connect({ address, onConnect, onDisconnect }) {
+
+function Connect({ address, onConnect, onDisconnect, onContract }) {
   const navigate = useNavigate();
+
   const connectWallet = async () => {
-    const { ethereum } = window;
-    if (!ethereum) return;
-
-    try {
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      onConnect(accounts[0])
-
-    } catch (err) {
-      console.log(err)
-    }
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const account = accounts[0];
+    onConnect(account);
+    connectContract();
   };
 
   const disconnectWallet = () => {
     onDisconnect();
     navigate("/");
   };
+
+  const connectContract = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const connectedContract = new ethers.Contract(
+      process.env.REACT_APP_CONTRACT_ID, nftTicketing.abi, signer
+    );
+    onContract(connectedContract);
+  }
+
   return (
     <Flex
       fontWeight="bold"
@@ -36,18 +42,18 @@ function Connect({ address, onConnect, onDisconnect }) {
       {address && (
         <HStack spacing="20px">
           <Box
-         bg="white"
-         color="black"
-         border="1px solid #ECC94B"
-         minW="120px"
-         p="8px 16px"
-         borderRadius="16px"
-         textAlign="center"
-         >
-              <Text >
-                💳 {address.slice(0, 6)}
-                ...{address.slice(-4)}
-              </Text>
+            bg="white"
+            color="black"
+            border="1px solid #ECC94B"
+            minW="120px"
+            p="8px 16px"
+            borderRadius="16px"
+            textAlign="center"
+          >
+            <Text >
+              💳 {address.slice(0, 6)}
+              ...{address.slice(-4)}
+            </Text>
           </Box>
           <Box
             bg="#ECC94B"

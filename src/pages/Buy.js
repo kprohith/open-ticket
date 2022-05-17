@@ -2,6 +2,7 @@ import {
   useEffect,
   useState,
 } from "react";
+
 import {
   Button,
   Heading,
@@ -14,37 +15,40 @@ import {
 
 import Connect from "../components/Connect";
 
-function Buy({ connectedContract, address, setAddress }) {
+function Buy({ address, setAddress, contract, setContract, isOwner, setIsOwner }) {
+
   const toast = useToast();
-  const [
-    totalTicketCount,
-    setTotalTicketCount,
-  ] = useState(null);
 
-  const [
-    availableTicketCount,
-    setAvailableTicketCount,
-  ] = useState(null);
+  const [totalTicketCount, setTotalTicketCount] = useState(null);
 
-  const [
-    buyTxnPending,
-    setBuyTxnPending,
-  ] = useState(false);
+  const [availableTicketCount, setAvailableTicketCount] = useState(null);
+
+  const [buyTxnPending, setBuyTxnPending] = useState(false);
+
+  const checkOwnership = async () => {
+    if (!address || !contract) return;
+    const ownerAddress = await contract.owner();
+    if (address.toLowerCase() === ownerAddress.toLowerCase()) {
+      setIsOwner(true)
+    } else {
+      setIsOwner(false);
+    }
+  }
 
   useEffect(() => {
-    if (!connectedContract) return;
-
+    if (!contract) return;
+    checkOwnership();
     getAvailableTicketCount();
     getTotalTicketCount();
   });
 
   const buyTicket = async () => {
     try {
-      if (!connectedContract) return;
+      if (!contract) return;
 
       setBuyTxnPending(true);
       const buyTxn =
-        await connectedContract.mint({
+        await contract.mint({
           value: `${0.04 * 10 ** 18}`,
         });
 
@@ -83,7 +87,7 @@ function Buy({ connectedContract, address, setAddress }) {
   const getAvailableTicketCount =
     async () => {
       try {
-        const count = await connectedContract.availableTicketCount();
+        const count = await contract.availableTicketCount();
         setAvailableTicketCount(
           count.toNumber()
         );
@@ -96,7 +100,7 @@ function Buy({ connectedContract, address, setAddress }) {
     async () => {
       try {
         const count =
-          await connectedContract.totalTicketCount();
+          await contract.totalTicketCount();
         setTotalTicketCount(
           count.toNumber()
         );
@@ -137,6 +141,10 @@ function Buy({ connectedContract, address, setAddress }) {
           window.localStorage.removeItem(
             "open-ticket-address"
           );
+        }}
+
+        onContract={(contract) => {
+          setContract(contract);
         }}
       />
 

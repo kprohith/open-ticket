@@ -7,38 +7,28 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
+
 import {
   useEffect,
   useState,
 } from "react";
+
 import QrReader from "react-qr-scanner";
 
-function CheckIn({
-  connectedContract,
-}) {
+function CheckIn({ contract }) {
   const toast = useToast();
-  const [showScanner, setShowScanner] =
-    useState(false);
-  const [
-    scannedAddress,
-    setScannedAddress,
-  ] = useState(null);
-
-  const [hasTicket, setHasTicket] =
-    useState(false);
-
-  const [
-    checkInTxnPending,
-    setCheckInTxnPending,
-  ] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
+  const [scannedAddress, setScannedAddress] = useState(null);
+  const [hasTicket, setHasTicket] = useState(false);
+  const [checkInTxnPending, setCheckInTxnPending] = useState(false);
 
   const checkIn = async () => {
     try {
-      if (!connectedContract) return;
+      if (!contract) return;
 
       setCheckInTxnPending(true);
       const checkInTxn =
-        await connectedContract.checkIn(
+        await contract.checkIn(
           scannedAddress
         );
 
@@ -76,16 +66,14 @@ function CheckIn({
     const confirmOwnership =
       async () => {
         try {
-          if (!connectedContract)
+          if (!contract)
             return;
 
           const res =
-            await connectedContract.confirmOwnership(
+            await contract.confirmOwnership(
               scannedAddress
             );
-
           setHasTicket(res);
-
           console.log(res);
         } catch (error) {
           console.log(error);
@@ -96,7 +84,7 @@ function CheckIn({
       confirmOwnership();
     }
   }, [
-    connectedContract,
+    contract,
     scannedAddress,
   ]);
 
@@ -210,8 +198,8 @@ function CheckIn({
                     6
                   )}
                     ...${address[1].slice(
-                      -4
-                    )}`,
+                    -4
+                  )}`,
                   status: "success",
                   variant: "subtle",
                 });
