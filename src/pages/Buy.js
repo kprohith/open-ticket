@@ -9,7 +9,7 @@ import {
   Flex,
   useToast,
   VStack,
-  Box
+  Image
 } from "@chakra-ui/react";
 
 import Connect from "../components/Connect";
@@ -152,14 +152,13 @@ function Buy({ connectedContract, address, setAddress }) {
             align="center"
             justify="center"
             border="1px"
+            borderRadius="16px"
             width="200px"
 
           >
-            <Box padding="100px 0px">
-              {/* TODO: get img of nft */}
-            </Box>
+            <Image p={5} src="https://gateway.pinata.cloud/ipfs/QmWmYVgKziHKQ964iQ5TZgk3wCKrejiZroLfwthDEmr2pQ" alt="OPNT ticket NFT"></Image>
             <Text as="strong">
-              OPNT {/* TODO: get name of nft */}
+              OPNT
             </Text>
             <Button
               onClick={buyTicket}
@@ -171,7 +170,7 @@ function Buy({ connectedContract, address, setAddress }) {
             >
               Buy Ticket
             </Button>
-            <Text w="130px">
+            <Text w="130px" p={3}>
               {availableTicketCount} of {totalTicketCount} minted!
             </Text>
           </VStack>

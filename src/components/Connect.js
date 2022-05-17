@@ -38,7 +38,7 @@ function Connect({ address, onConnect, onDisconnect }) {
           <Box
          bg="white"
          color="black"
-         border="1px solid goldenrod"
+         border="1px solid #ECC94B"
          minW="120px"
          p="8px 16px"
          borderRadius="16px"
@@ -50,7 +50,7 @@ function Connect({ address, onConnect, onDisconnect }) {
               </Text>
           </Box>
           <Box
-            bg="goldenrod"
+            bg="#ECC94B"
             minW="120px"
             p="8px 16px"
             borderRadius="16px"
