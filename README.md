@@ -44,13 +44,15 @@ yarn start
     3. Admin-accessible Check In page to verify ownership of user tickets/nfts.
     4. Admin-accessible Settings page to OPEN/CLOSE sale of tickets.
     5. Your Tickets page to show the user's tickets/nfts.
+    6. Navigation bar that dynamically shows pages available based on users wallet address.
 
 2. The process of "buying" a ticket will mint an ERC720 NFT.
 3. Metamask has been integrated for users to connect and perform transactions.
 4. Once a user connects their Metamask wallet using the connect button, they can proceed to BUY a ticket, pay the transaction fee and secure a ticket which will result in a NFT being minted and written to the blockchain.
 5. The user can then go to the Your Tickets page to check their ticket.
-6. Only Admin(owner of the smart contract) can open/close sales.
-7. In browser toast pop-ups direct to Etherscan to verify transactions on the blockchain.
-8. Ownership of NFTs can be verify on OpenSea.
-9. Admins can scan the wallet QR code of a user to verify ownership of the ticket and Check in the user.
-10. Once checked-in, the metadata of the ticket on the blockchain is updated to show that the user has checked in.
+6. The user can sort their tickets by newest, oldest and alphabetical order.
+7. Only Admin (owner of the smart contract) can open/close sales.
+8. In browser toast pop-ups direct to Etherscan to verify transactions on the blockchain.
+9. Ownership of NFTs can be verify on OpenSea.
+10. Admins can scan the wallet QR code of a user to verify ownership of the ticket and Check in the user.
+11. Once checked-in, the metadata of the ticket on the blockchain is updated to show that the user has checked in.
