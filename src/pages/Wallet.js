@@ -52,8 +52,8 @@ function Wallet({ address }) {
             </Box>
           </Link>
         })}
-      </>
-    );
+        </>
+        );
   };
 
   useEffect(() => {

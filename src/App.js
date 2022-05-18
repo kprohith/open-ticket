@@ -18,20 +18,20 @@ function App() {
 
   return (
     <Page>
-      <NavBar address={address} isOwner={isOwner} />
+      <NavBar address={address} isOwner={isOwner}/>
       <Routes>
         <Route
           path="/"
-          element={<Buy address={address} setAddress={setAddress} contract={contract} setContract={setContract} isOwner={isOwner} setIsOwner={setIsOwner} />}
+          element={<Buy address={address} setAddress={setAddress} contract={contract} setContract={setContract}  isOwner={isOwner} setIsOwner={setIsOwner}/>}
         />
 
         <Route
           path="/wallet"
-          element={<Wallet address={address} />}
+          element={<Wallet address={address}/>}
         />
         <Route
           path="/check-in"
-          element={<CheckIn contract={contract} />}
+          element={<CheckIn contract={contract}/>}
         />
 
         <Route

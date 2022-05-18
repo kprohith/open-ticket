@@ -27,7 +27,7 @@ import {
     faAlignJustify
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function NavBar({ address, isOwner }) {
+export default function NavBar({address, isOwner}) {
 
     const [width, setWidth] = useState(null);
 

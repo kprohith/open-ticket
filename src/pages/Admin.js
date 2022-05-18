@@ -8,7 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-function Admin({ contract }) {
+function Admin({contract}) {
 
   const toast = useToast();
   const [openSaleTxnPending, setOpenSaleTxnPending] = useState(false);
@@ -29,7 +29,7 @@ function Admin({ contract }) {
         title: 'Sale is open!',
         variant: 'subtle',
         description: (
-          <a
+          <a 
             href={`https://rinkeby.etherscan.io/tx/${openSaleTxn.hash}`} target="_blank" rel="noreferrer nofollow"
           >
             View this transaction on Etherscan.
@@ -67,7 +67,7 @@ function Admin({ contract }) {
         title: 'Sale is closed!',
         variant: 'subtle',
         description: (
-          <a
+          <a 
             href={`https://rinkeby.etherscan.io/tx/${closeSaleTxn.hash}`} target="_blank" rel="nofollow noreferrer"
           >
             View this transaction on Etherscan.
