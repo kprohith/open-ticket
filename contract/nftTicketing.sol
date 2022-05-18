@@ -18,9 +18,9 @@ contract nftTicketing is ERC721URIStorage, Ownable {
     uint256 public totalTickets = 100;
     uint256 public availableTickets = 100;
     uint256 public mintPrice = 40000000000000000;
-
+    uint256 public eventTime;
     mapping(address => bool) public checkIns;
-    mapping(address => uint256[]) public ownerTokenIDS; 
+    mapping(address => uint256[]) public ownerTokenIDS;
 
     constructor() ERC721("nftTickets", "OPNT") {
         currentId.increment();
@@ -28,17 +28,36 @@ contract nftTicketing is ERC721URIStorage, Ownable {
         // owner = msg.sender;
     }
 
-    function checkIn(address addy) public {
-        checkIns[addy] = true;
-        uint256 tokenId = ownerTokenIDS[addy][0];
+    function checkIn(address walletAddress) public {
+        checkIns[walletAddress] = true;
+        uint256 tokenId = ownerTokenIDS[walletAddress][0];
+        string memory walletAddressString = string(
+            abi.encodePacked("0x", msg.sender)
+        );
+        string memory robohash = string(
+            abi.encodePacked(
+                "https://robohash.org/",
+                walletAddressString,
+                tokenId
+            )
+        );
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{ "name": "OPNT #',
+        string memory json = Base64.encode(
+            bytes(
+                string(
+                    abi.encodePacked(
+                        '{ "name": "OPNT #',
                         Strings.toString(tokenId),
                         '", "description": "A NFT-powered ticketing system", ',
                         '"traits": [{ "trait_type": "Checked In", "value": "true" }, { "trait_type": "Purchased", "value": "true" }], ',
-                        '"image": "ipfs://QmWmYVgKziHKQ964iQ5TZgk3wCKrejiZroLfwthDEmr2pQ" }'))));
+                        '"image": "',
+                        robohash,
+                        '" }'
+                    )
+                )
+            )
+        );
 
-        
         string memory tokenURI = string(
             abi.encodePacked("data:application/json;base64,", json)
         );
@@ -47,27 +66,51 @@ contract nftTicketing is ERC721URIStorage, Ownable {
     }
 
     function mint() public payable {
-        require(availableTickets> 0, "There are not enough tickets available!");
+        require(
+            availableTickets > 0,
+            "There are not enough tickets available!"
+        );
         require(msg.value >= mintPrice, "Insufficient ETH in wallet!");
         require(saleIsActive, "Currently, there are no tickets on sale.");
 
         string[5] memory svg;
-        svg[0] = '<svg viewBox=" 0 0 100 100" xmlns="https://www.w3.org/2000/svg"><text y="50">';
+        svg[
+            0
+        ] = '<svg viewBox=" 0 0 100 100" xmlns="https://www.w3.org/2000/svg"><text y="50">';
         svg[1] = Strings.toString((currentId.current()));
         svg[2] = "</text></svg>";
 
         string memory image = string(abi.encodePacked(svg[0], svg[1], svg[2]));
-        
+
         string memory encodedImage = Base64.encode(bytes(image));
         console.log(encodedImage);
+        string memory walletAddressString = string(
+            abi.encodePacked("0x", msg.sender)
+        );
+        string memory robohash = string(
+            abi.encodePacked(
+                "https://robohash.org/",
+                walletAddressString,
+                Strings.toString(currentId.current())
+            )
+        );
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{ "name": "OPNT #',
+        string memory json = Base64.encode(
+            bytes(
+                string(
+                    abi.encodePacked(
+                        '{ "name": "OPNT #',
                         Strings.toString(currentId.current()),
                         '", "description": "A NFT-powered ticketing system", ',
                         '"traits": [{ "trait_type": "Checked In", "value": "false" }, { "trait_type": "Purchased", "value": "true" }], ',
-                        '"image": "ipfs://QmWmYVgKziHKQ964iQ5TZgk3wCKrejiZroLfwthDEmr2pQ" }'))));
+                        '"image": "',
+                        robohash,
+                        '" }'
+                    )
+                )
+            )
+        );
 
-        
         string memory tokenURI = string(
             abi.encodePacked("data:application/json;base64,", json)
         );
@@ -89,22 +132,25 @@ contract nftTicketing is ERC721URIStorage, Ownable {
     }
 
     function openSale() public onlyOwner {
-      saleIsActive = true;
+        saleIsActive = true;
     }
 
     function closeSale() public onlyOwner {
-      saleIsActive = false;
+        saleIsActive = false;
     }
 
-    function confirmOwnership(address addy) public view returns (bool) {
-        return ownerTokenIDS[addy].length > 0;
+    function confirmOwnership(address walletAddress)
+        public
+        view
+        returns (bool)
+    {
+        return ownerTokenIDS[walletAddress].length > 0;
     }
 
     // uint256 ticketPrice = 1 wei;
     // address owner;
     // mapping(address => uint256) public ticketHolders;
 
-    
     // function buyTickets(address _user, uint256 _amount) public payable {
     //     require(msg.value >= ticketPrice * _amount, "Value incorrect!");
     //     addTickets(_user, _amount);
