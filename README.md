@@ -46,7 +46,7 @@ yarn start
     5. Your Tickets page to show the user's tickets/nfts.
     6. Navigation bar that dynamically shows pages available based on users wallet address.
 
-2. The process of "buying" a ticket will mint an ERC720 NFT.
+2. The process of "buying" a ticket will mint an ERC721 NFT.
 3. Metamask has been integrated for users to connect and perform transactions.
 4. Once a user connects their Metamask wallet using the connect button, they can proceed to BUY a ticket, pay the transaction fee and secure a ticket which will result in a NFT being minted and written to the blockchain.
 5. The user can then go to the Your Tickets page to check their ticket.
